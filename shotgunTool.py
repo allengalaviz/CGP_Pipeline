@@ -20,19 +20,36 @@ def validateID(userInputID):
 	while validationNumber == False:
 		try:
 			userInputID = int(userInputID)
-			validationNumber = True
+			return userInputID
 		except:
-			userInputID = raw_input("ERROR! The Id must be a number")
+			userInputID = raw_input("ERROR! The Id must be a number\n")
 
 def validateIDShotgun(validatedID):
 	shotgunValidation = False
-	shotgunFile = sg.find_one(inputType, [["id", "is", validateID]], ["id", "code"])
-	
+	while shotgunValidation == False:
+		try:
+			shotgunFile = sg.find_one(inputType, [["id", "is", validatedID]], ["id", "code"])
+		except Exception as e:
+			print e
+		if shotgunFile == None:
+			newID = raw_input("No %s founded in the project, try another ID:\n" %inputType)
+			try:
+				validatedID = validateID(newID)
+			except Exception as e:
+				print e 
+		else:
+			print "The %s founded name is: %s \n" %(inputType, shotgunFile['code'])
+			return shotgunFile
+
+def checkVersionsShotgun(jsonShotgun):
+	sg.find("Version", [["id", "is", validatedID]], ["code"])
 
 option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
 inputType = validateType(option)
 ID = raw_input("Type the ID of the %s: " %inputType)
-validateID(ID)
+goodID = validateID(ID)
+shotgunInfo = validateIDShotgun(goodID)
+checkVersionsShotgun(shotgunInfo)
 
 print "Data correct"
-time.sleep(5)
+time.sleep(10)
