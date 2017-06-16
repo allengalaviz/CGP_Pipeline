@@ -3,6 +3,10 @@ from shotgun_api3 import Shotgun
 import os.path
 import time
 
+global inputType, goodID, projectID, goodProjectID, savedVersions
+
+codeToUpload = None
+
 sg = Shotgun("https://upgdl.shotgunstudio.com", "ShotgunTool_Script", "b2d1623aecc4ac178f384f10db7a3fa590eb2f6afb45d73f5797ee8f46c3ef10")
 
 def validateType(userInputType):
@@ -41,8 +45,18 @@ def validateIDShotgun(validatedID):
 			print "The %s founded name is: %s \n" %(inputType, shotgunFile['code'])
 			return shotgunFile
 
-def checkVersionsShotgun(jsonShotgun):
-	sg.find("Version", [["id", "is", validatedID]], ["code"])
+
+	print 'Uploaded succesfully'
+
+def checkVersionsShotgun():
+	global savedVersions, codeToUpload
+	fields = ['id', 'code']
+	filters = [['entity', 'is', {'type': inputType, 'id': goodID}]]
+	versions = sg.find("Version", filters, fields)
+	savedVersions = versions
+	print "The versions in this %s are:" %inputType
+	for v in versions:
+		print 'version: %s \nID: %d' %(v['code'], v['id'])
 
 option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
 inputType = validateType(option)
