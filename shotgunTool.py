@@ -91,54 +91,62 @@ def updateContent(contentID, code, inputType):
 	result = sg.update(inputType, contentID, data)
 
 def uploadContent(ID, mediaPath):
+	print mediaPath
 	result = sg.upload("Version", ID, mediaPath, field_name = "sg_uploaded_movie", display_name = "Latest QT")
 
 #UPLOAD CONTENT
-option = raw_input("Where do you want to upload your video?\n-> Asset\n-> Shot\n").lower()
+'''option = raw_input("Where do you want to upload your video?\n-> Asset\n-> Shot\n").lower()
 inputType = validateType(option)
-ID = raw_input("Type the version ID of the %s:\n" %inputType)
+ID = raw_input("What's the version's ID of the %s:\n" %inputType)
 goodID = validateID(ID)
-mediaFile = "\Users\allengalaviz\Documents\[EFECTOS VISUALES]\Particulas y Destruccion\popcornrender.mov"
+#mediaFile ='/Users/allengalaviz/Desktop/popcornrender.mov'
 checkVersionsShotgun()
-versionID = raw_input("Type the ID of the version where you want to upload your video:\n")
+versionID = raw_input("What's the ID of the version where you want to upload your video:\n")
 goodVersionID = validateID(versionID)
-uploadContent(goodVersionID, mediaFile)
+try:
+	uploadContent(goodVersionID, "c:\\Users\\allengalaviz\\Desktop\\popcornrender.mov")
+except Exception as e:
+	print e '''
+
 
 #ASIGN NAME
-option = raw_input("What you want to upload?\n-> Asset\n-> Shot\n").lower()
+'''option = raw_input("What you want to upload?\n-> Asset\n-> Shot\n").lower()
 inputType = validateType(option)
-ID = raw_input("Type the ID of the %s:\n" %inputType)
+ID = raw_input("What's the ID of the %s:\n" %inputType)
 goodID = validateID(ID)
 shotgunInfo = validateIDShotgun(goodID)
 checkVersionsShotgun()
-Name = asignName(raw_input("\nType the name to asign to your %s \n" %inputType))
-print codeToUpload
+Name = asignName(raw_input("\nWhat's the name to asign to your %s \n" %inputType))
+print codeToUpload'''
 
 #CREATE CONTENT
-projectName = raw_input("\nType the name of the project you want to create a shot in:\n")
-projectID = raw_input("\nType in %s's ID:\n" %projectName)
+'''projectName = raw_input("What's the name of the project you want to create a shot in:\n")
+projectID = raw_input("What's the ID of %s:\n" %projectName)
 goodID = validateID(projectID)
-option = raw_input("Type what you want to create?\n-> Asset\n-> Shot\n").lower()
+option = raw_input("What do you want to create?\n-> Asset\n-> Shot\n").lower()
 inputType = validateType(option)
-code = raw_input("Type the name of the %s:\n" %inputType)
-createContent(goodID, code, inputType)
+code = raw_input("What's the name of the %s:\n" %inputType)
+createContent(goodID, code, inputType)'''
 
 #CREATE VERSION
+'''projectName = raw_input("What's the name of the project you want to create a shot in:\n")
+projectID = raw_input("What's the ID of %s:\n" %projectName)
 goodProjectID = validateID(projectID)
-desc = raw_input("\nType in the description:\n")
-mediaFile = "\Users\allengalaviz\Documents\[EFECTOS VISUALES]\Particulas y Destruccion\popcornrender.mov"
-createVersion(inputType, goodProjectID, code, goodID, mediaFile, desc)
+option = raw_input("Where do you want to create a new version?\n-> Asset\n-> Shot\n").lower()
+inputType = validateType(option)
+ID = raw_input("What is the Id of the %s:\n" %inputType)
+goodID = validateID(ID)
+code = raw_input("What is the version's name of the %s:\n" %inputType)
+mediaFile = "/Users/allengalaviz/Documents/[EFECTOS VISUALES]/Particulas y Destruccion/popcornrender.mov"
+desc = raw_input("\nType the description:\n")
+createVersion(inputType, goodProjectID, code, goodID, mediaFile, desc)'''
 
 #DELETE CONTENT
 option = raw_input("What do you want to delete?\n-> Asset\n-> Shot\n").lower()
 inputType = validateType(option)
-ID = raw_input("Type the ID of the %s:\n" %inputType)
+ID = raw_input("What's the ID of the %s:\n" %inputType)
 goodID = validateID(ID)
 deleteContent(inputType, goodID)
-
-
-
-
 
 print "Data correct"
 time.sleep(10)
