@@ -93,12 +93,52 @@ def updateContent(contentID, code, inputType):
 def uploadContent(ID, mediaPath):
 	result = sg.upload("Version", ID, mediaPath, field_name = "sg_uploaded_movie", display_name = "Latest QT")
 
-option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
+#UPLOAD CONTENT
+option = raw_input("Where do you want to upload your video?\n-> Asset\n-> Shot\n").lower()
 inputType = validateType(option)
-ID = raw_input("Type the ID of the %s: " %inputType)
+ID = raw_input("Type the version ID of the %s:\n" %inputType)
+goodID = validateID(ID)
+mediaFile = "\Users\allengalaviz\Documents\[EFECTOS VISUALES]\Particulas y Destruccion\popcornrender.mov"
+checkVersionsShotgun()
+versionID = raw_input("Type the ID of the version where you want to upload your video:\n")
+goodVersionID = validateID(versionID)
+uploadContent(goodVersionID, mediaFile)
+
+#ASIGN NAME
+option = raw_input("What you want to upload?\n-> Asset\n-> Shot\n").lower()
+inputType = validateType(option)
+ID = raw_input("Type the ID of the %s:\n" %inputType)
 goodID = validateID(ID)
 shotgunInfo = validateIDShotgun(goodID)
-checkVersionsShotgun(shotgunInfo)
+checkVersionsShotgun()
+Name = asignName(raw_input("\nType the name to asign to your %s \n" %inputType))
+print codeToUpload
+
+#CREATE CONTENT
+projectName = raw_input("\nType the name of the project you want to create a shot in:\n")
+projectID = raw_input("\nType in %s's ID:\n" %projectName)
+goodID = validateID(projectID)
+option = raw_input("Type what you want to create?\n-> Asset\n-> Shot\n").lower()
+inputType = validateType(option)
+code = raw_input("Type the name of the %s:\n" %inputType)
+createContent(goodID, code, inputType)
+
+#CREATE VERSION
+goodProjectID = validateID(projectID)
+desc = raw_input("\nType in the description:\n")
+mediaFile = "\Users\allengalaviz\Documents\[EFECTOS VISUALES]\Particulas y Destruccion\popcornrender.mov"
+createVersion(inputType, goodProjectID, code, goodID, mediaFile, desc)
+
+#DELETE CONTENT
+option = raw_input("What do you want to delete?\n-> Asset\n-> Shot\n").lower()
+inputType = validateType(option)
+ID = raw_input("Type the ID of the %s:\n" %inputType)
+goodID = validateID(ID)
+deleteContent(inputType, goodID)
+
+
+
+
 
 print "Data correct"
 time.sleep(10)
