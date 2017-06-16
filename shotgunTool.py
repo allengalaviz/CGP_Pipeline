@@ -70,6 +70,12 @@ def asignName(inputName):
 		codeToUpload = codeToUpload[:len(codeToUpload) - 4] + ('_v%03d' %(int(codeToUpload[len(codeToUpload) - 3:])+ 1))
 		updateContent(goodID, codeToUpload, inputType)
 
+def createContent(id, code, taskType):
+    data = {'project': {"type": "Project","id": id}, 'code': code, 'description': 'Open on a beautiful field with fuzzy bunnies', 'sg_status_list': 'ip'}
+    result = sg.create(taskType, data)
+    pprint(result)
+    print "The id of the %s is %d." % (result['type'], result['id'])
+
 option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
 inputType = validateType(option)
 ID = raw_input("Type the ID of the %s: " %inputType)
