@@ -82,6 +82,17 @@ def createVersion(inType, ID, code, actionID, mediaPath, description):
 	result = sg.create('Version', data)
 	uploadContent(result['id'], mediaPath)
 
+def deleteContent(inpType, inputID):
+	result = sg.delete(inpType, inputID)
+	print 'The %s has been deleted succesfully' %inpType
+
+def updateContent(contentID, code, inputType):
+	data = {'code': code, 'description': 'Updating...', 'sg_status_list': 'ip'}
+	result = sg.update(inputType, contentID, data)
+
+def uploadContent(ID, mediaPath):
+	result = sg.upload("Version", ID, mediaPath, field_name = "sg_uploaded_movie", display_name = "Latest QT")
+
 option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
 inputType = validateType(option)
 ID = raw_input("Type the ID of the %s: " %inputType)
