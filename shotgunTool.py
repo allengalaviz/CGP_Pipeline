@@ -58,6 +58,18 @@ def checkVersionsShotgun():
 	for v in versions:
 		print 'version: %s \nID: %d' %(v['code'], v['id'])
 
+def asignName(inputName):
+	global savedVersions, codeToUpload
+	for v in savedVersions:
+		if inputName.lower() in v['code'].lower():
+			codeToUpload = v['code']
+	if codeToUpload == None:
+		codeToUpload = inputName + "_v001"
+		updateContent(goodID, codeToUpload, inputType)
+	else:
+		codeToUpload = codeToUpload[:len(codeToUpload) - 4] + ('_v%03d' %(int(codeToUpload[len(codeToUpload) - 3:])+ 1))
+		updateContent(goodID, codeToUpload, inputType)
+
 option = raw_input("What do you want to upload?\n->Asset\n->Shot\n").lower()
 inputType = validateType(option)
 ID = raw_input("Type the ID of the %s: " %inputType)
